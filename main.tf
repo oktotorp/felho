@@ -101,11 +101,11 @@ output "dev_public_ip" {
 
 # Új EC2 példa DEV környezethez
 resource "aws_instance" "dev_vm2" {
-  ami                    = "ami-03e876513b1441cbf" # Ubuntu AMI
-  instance_type          = "t3.micro"
-  subnet_id              = aws_subnet.dev_subnet.id
+  ami           = "ami-03e876513b1441cbf"
+  instance_type = "t3.micro"
+  subnet_id     = aws_subnet.dev_subnet.id
+  key_name      = aws_key_pair.dev_key.key_name
   vpc_security_group_ids = [aws_security_group.dev_sg.id]
-  key_name               = aws_key_pair.dev_key.key_name
   associate_public_ip_address = true
 
   tags = {
@@ -113,7 +113,8 @@ resource "aws_instance" "dev_vm2" {
   }
 }
 
-output "dev_vm2_public_ip" {
+
+output "dev_vm2_ip" {
   value = aws_instance.dev_vm2.public_ip
 }
 
